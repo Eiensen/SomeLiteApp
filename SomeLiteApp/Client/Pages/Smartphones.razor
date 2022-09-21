@@ -1,0 +1,29 @@
+﻿@page "/smartphones"
+
+@inject ISmartphoneServiece SmartphoneServiece
+<PageTitle>Smartphones</PageTitle>
+<h3>Smartphones</h3>
+
+@if(SmartphoneServiece.Smartphones.Count <= 0)
+{
+    <span>Loading...</span>
+}
+else
+{
+    <ul>
+        @foreach (var smartphone in SmartphoneServiece.Smartphones)
+        {
+            <li>
+                @smartphone.Name - @smartphone.Price (<i>Qty:</i> @smartphone.Quantity)
+            </li>
+        }
+    </ul>
+}
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await SmartphoneServiece.GetSmartphones();
+    }
+}
